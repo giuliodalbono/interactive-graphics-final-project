@@ -5,6 +5,8 @@ import { createScene } from "./scene.js";
 import { createLights } from "./light.js";
 import { createEarth } from "./model/Earth.js";
 import { createSky } from "./model/Sky.js";
+import { createCube } from "./model/Cube.js";
+import { animateCube } from "./jump.js";
 
 window.addEventListener('load', init, false);
 
@@ -18,10 +20,17 @@ function init() {
     // Create Sea
     createEarth();
 
+    // Create Cube
+    createCube();
+
     // Create Sky
     createSky();
 
+    // Move the clouds in the sky
     animationLoop();
+
+    // Animate cube
+    animateCube();
 }
 
 function animationLoop(){
