@@ -12,15 +12,15 @@ export function createScene() {
     window['scene'] = new THREE.Scene();
 
     // Create the camera
-    const aspectRatio = WIDTH / HEIGHT;
-    const fieldOfView = 60;
-    const nearPlane = 1;
-    const farPlane = 10000;
+    const ASPECT_RATIO = WIDTH / HEIGHT;
+    const FIELD_OF_VIEW = 60;
+    const NEAR_PLANE = 1;
+    const FAR_PLANE = 10000;
     const camera = new THREE.PerspectiveCamera(
-        fieldOfView,
-        aspectRatio,
-        nearPlane,
-        farPlane
+        FIELD_OF_VIEW,
+        ASPECT_RATIO,
+        NEAR_PLANE,
+        FAR_PLANE
     );
     window['camera'] = camera;
 
@@ -44,6 +44,7 @@ export function createScene() {
 
     // Enable shadow rendering
     renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Add the DOM element of the renderer to the container we created in the HTML
     const container = document.getElementById('world');
