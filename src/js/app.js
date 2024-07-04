@@ -21,5 +21,23 @@ function init() {
     // Create Sky
     createSky();
 
+    animationLoop();
+}
+
+function animationLoop(){
+    // Update cloud position to make feel there is movement
+    sky.mesh.children.forEach(cloud => {
+        cloud.position.x -= 5;
+
+        // Recycle the cloud if it exits from the scene
+        if (cloud.position.x < -((sky.nClouds / 2) * sky.horizontalSpacing)) {
+            cloud.position.x += sky.nClouds * sky.horizontalSpacing;
+        }
+    });
+
+    // render the scene
     renderer.render(scene, camera);
+
+    // call the loop function again
+    requestAnimationFrame(loop);
 }

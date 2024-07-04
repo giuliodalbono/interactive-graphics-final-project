@@ -10,14 +10,14 @@ class Sky {
         this.nClouds = 30;
 
         // Define the horizontal spacing between clouds
-        const horizontalSpacing = 200;
+        this.horizontalSpacing = 200;
 
         // Create the clouds
         for (let i = 0; i < this.nClouds; i++) {
             const c = new Cloud();
 
             // Set the position of each cloud along the x-axis
-            c.mesh.position.x = i * horizontalSpacing - (this.nClouds / 2) * horizontalSpacing;
+            c.mesh.position.x = i * this.horizontalSpacing - (this.nClouds / 2) * this.horizontalSpacing;
 
             // Set a constant y position (height) for the clouds
             c.mesh.position.y = 300 + Math.random() * 100;
@@ -37,9 +37,8 @@ class Sky {
 
 // Instantiate the sky and add it to the scene
 
-let sky;
 
 export function createSky(){
-    sky = new Sky();
+    window['sky'] = new Sky();
     scene.add(sky.mesh);
 }
