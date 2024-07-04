@@ -3,6 +3,8 @@
  */
 import { createScene } from "./scene.js";
 import { createLights } from "./light.js";
+import { createEarth } from "./model/Earth.js";
+import { createSky } from "./model/Sky.js";
 
 window.addEventListener('load', init, false);
 
@@ -12,4 +14,12 @@ function init() {
 
     // Add the lights
     createLights();
+
+    // Create Sea
+    createEarth();
+
+    // Create Sky
+    createSky();
+
+    renderer.render(scene, camera);
 }
