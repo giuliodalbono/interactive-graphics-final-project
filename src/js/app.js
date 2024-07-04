@@ -39,5 +39,5 @@ function animationLoop(){
     renderer.render(scene, camera);
 
     // call the loop function again
-    requestAnimationFrame(loop);
+    requestAnimationFrame(animationLoop);
 }
