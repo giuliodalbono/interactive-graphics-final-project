@@ -12,6 +12,7 @@ import { createObstacle } from "./model/Obstacle.js";
 window.addEventListener('load', init, false);
 
 window['lives'] = 3;
+let CLOUD_VELOCITY = 5;
 const statisticsPanel = document.getElementById('statisticsPanel');
 const gameOverPanel = document.getElementById('gameOverPanel');
 
@@ -53,7 +54,7 @@ function init() {
 function animationLoop(){
     // Update cloud position to make feel there is movement
     sky.mesh.children.forEach(cloud => {
-        cloud.position.x -= 5;
+        cloud.position.x -= CLOUD_VELOCITY;
 
         // Recycle the cloud if it exits from the scene
         if (cloud.position.x < -((sky.nClouds / 2) * sky.horizontalSpacing)) {
@@ -61,8 +62,14 @@ function animationLoop(){
         }
     });
 
+    // Increment speed of clouds linearly
+    incrementCloudVelocity();
+
     // Move obstacle
     obstacle.move();
+
+    // Increment speed of obstacles linearly
+    obstacle.incrementSpeed();
 
     // Check for collision with the cube
     if (cube.checkCollision(obstacle)) {
@@ -86,5 +93,11 @@ function animationLoop(){
     } else {
         showGameOverPanel();
         console.log("Oh no, it seems like you lost the game!");
+    }
+}
+
+function incrementCloudVelocity() {
+    if (CLOUD_VELOCITY < 25) {
+        CLOUD_VELOCITY += 0.0015;
     }
 }

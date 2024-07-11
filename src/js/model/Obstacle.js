@@ -4,6 +4,7 @@ import { Colors } from "../color.js";
 class Obstacle {
     constructor() {
         this.alreadyCollided = false;
+        this.obstacleVelocity = 2.5;
         const geometry = new THREE.BoxGeometry(30, 30, 30);
         const material = new THREE.MeshPhongMaterial({ color: Colors.red });
         this.mesh = new THREE.Mesh(geometry, material);
@@ -12,12 +13,12 @@ class Obstacle {
     }
 
     resetPosition() {
-        this.mesh.position.set(1200 + Math.random() * 300, 0, -50); // Random Z position
+        this.mesh.position.set(1200 + Math.random() * 600, 0, -50); // Random Z position
         this.alreadyCollided = false;
     }
 
     move() {
-        this.mesh.position.x -= 2.5;
+        this.mesh.position.x -= this.obstacleVelocity;
         if (this.mesh.position.x < -600) {
             this.resetPosition();
         }
@@ -53,6 +54,12 @@ class Obstacle {
             }
         }
         crash()
+    }
+
+    incrementSpeed() {
+        if (this.obstacleVelocity < 7.5) {
+            this.obstacleVelocity += 0.001;
+        }
     }
 }
 

@@ -27,8 +27,8 @@ export function createLights() {
     shadowLight.shadow.camera.far = 1000;
 
     // Define the resolution of the shadow; the higher, the better, but also the more expensive and less performant
-    shadowLight.shadow.mapSize.width = 2048;
-    shadowLight.shadow.mapSize.height = 2048;
+    shadowLight.shadow.mapSize.width = 1024;
+    shadowLight.shadow.mapSize.height = 1024;
 
     // To activate the lights, just add them to the scene
     scene.add(hemisphereLight);
