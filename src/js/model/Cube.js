@@ -1,5 +1,6 @@
 import * as THREE from "../../../vendors/three.module.js";
 import { Colors } from "../color.js";
+import { isJumping } from "../jump.js";
 
 class Cube {
     constructor() {
@@ -50,6 +51,9 @@ class Cube {
                 // Reset cube color to the original
                 cube.material.color.setHex(Colors.pink)
             }
+        }
+        if (isJumping) {
+            window['bounce'] = true;
         }
         vibrate();
     }

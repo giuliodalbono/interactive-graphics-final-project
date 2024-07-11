@@ -1,5 +1,5 @@
 // Jump logic
-let isJumping = false;
+export let isJumping = false;
 let velocity = 0;
 const GRAVITY = -0.5;
 const JUMP_STRENGTH = 12;
@@ -17,8 +17,14 @@ document.addEventListener('keydown', onKeyDown);
 // Animation loop
 export function animateCube() {
     if (isJumping) {
-        cube.mesh.position.y += velocity;
-        velocity += GRAVITY;
+        if (window['bounce']) {
+            velocity = JUMP_STRENGTH / 3; // Apply a smaller bounce
+            cube.mesh.position.y += velocity;
+            window['bounce'] = false;
+        } else {
+            cube.mesh.position.y += velocity;
+            velocity += GRAVITY;
+        }
 
         // Prevent the cube from falling below the ground (y = 0)
         if (cube.mesh.position.y <= 0) {
