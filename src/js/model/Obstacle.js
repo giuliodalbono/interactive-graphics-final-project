@@ -3,6 +3,7 @@ import { Colors } from "../color.js";
 
 class Obstacle {
     constructor() {
+        this.alreadyCollided = false;
         const geometry = new THREE.BoxGeometry(30, 30, 30);
         const material = new THREE.MeshPhongMaterial({ color: Colors.red });
         this.mesh = new THREE.Mesh(geometry, material);
@@ -12,6 +13,7 @@ class Obstacle {
 
     resetPosition() {
         this.mesh.position.set(1200 + Math.random() * 300, 0, -50); // Random Z position
+        this.alreadyCollided = false;
     }
 
     move() {

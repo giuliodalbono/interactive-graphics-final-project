@@ -8,6 +8,7 @@ class Cube {
         this.material = new THREE.MeshPhongMaterial({ color: Colors.pink });
         this.mesh = new THREE.Mesh(geometry, this.material);
         this.mesh.castShadow = true;
+        this.scale = 1;
 
         // Initial position of the cube (on top of the Earth)
         this.mesh.position.y = 0;
@@ -56,6 +57,11 @@ class Cube {
             window['bounce'] = true;
         }
         vibrate();
+    }
+
+    reduceCube() {
+        this.scale = this.scale - (this.scale / window['lives']);
+        cube.mesh.scale.set(this.scale, this.scale, this.scale);
     }
 }
 

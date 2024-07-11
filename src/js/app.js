@@ -11,6 +11,19 @@ import { createObstacle } from "./model/Obstacle.js";
 
 window.addEventListener('load', init, false);
 
+window['lives'] = 3;
+const statisticsPanel = document.getElementById('statisticsPanel');
+const gameOverPanel = document.getElementById('gameOverPanel');
+
+function updateLives() {
+    window['lives']--;
+    statisticsPanel.textContent = `Lives: ${window['lives']}`;
+}
+
+function showGameOverPanel() {
+    gameOverPanel.style.display = 'block';
+}
+
 function init() {
     // Set up the scene, the camera and the renderer
     createScene();
@@ -53,13 +66,25 @@ function animationLoop(){
 
     // Check for collision with the cube
     if (cube.checkCollision(obstacle)) {
+        if (! obstacle.alreadyCollided) {
+            if (window['lives'] > 1) {
+                cube.reduceCube();
+                obstacle.alreadyCollided = true;
+            }
+            updateLives();
+        }
         cube.animateCollision();
         obstacle.animateCrash();
     }
 
-    // render the scene
+    // Render the scene
     renderer.render(scene, camera);
 
-    // call the loop function again
-    requestAnimationFrame(animationLoop);
+    // Call the loop function again if player still has lives
+    if (window['lives'] !== 0) {
+        requestAnimationFrame(animationLoop);
+    } else {
+        showGameOverPanel();
+        console.log("Oh no, it seems like you lost the game!");
+    }
 }
