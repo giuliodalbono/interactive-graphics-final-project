@@ -7,6 +7,7 @@ import { createEarth } from "./model/Earth.js";
 import { createSky } from "./model/Sky.js";
 import { createCube } from "./model/Cube.js";
 import { animateCube } from "./jump.js";
+import { createObstacle } from "./model/Obstacle.js";
 
 window.addEventListener('load', init, false);
 
@@ -26,6 +27,9 @@ function init() {
     // Create Sky
     createSky();
 
+    // Create Obstacles
+    createObstacle();
+
     // Move the clouds in the sky
     animationLoop();
 
@@ -43,6 +47,15 @@ function animationLoop(){
             cloud.position.x += sky.nClouds * sky.horizontalSpacing;
         }
     });
+
+    // Move obstacle
+    obstacle.move();
+
+    // Check for collision with the cube
+    if (cube.checkCollision(obstacle)) {
+        cube.animateCollision();
+        obstacle.animateCrash();
+    }
 
     // render the scene
     renderer.render(scene, camera);
