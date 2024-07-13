@@ -8,5 +8,6 @@ export const Colors = {
     brown: 0x59332e,
     pink: 0xF5986E,
     brownDark: 0x23190f,
-    blue: 0x68c3c0
+    blue: 0x68c3c0,
+    gold: 0xffd700
 };

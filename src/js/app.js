@@ -8,20 +8,27 @@ import { createSky } from "./model/Sky.js";
 import { createCube } from "./model/Cube.js";
 import { animateCube } from "./jump.js";
 import { createObstacle } from "./model/Obstacle.js";
+import { animateCoins, createCoins } from "./model/Coin.js";
 
 window.addEventListener('load', init, false);
 
 window['lives'] = 3;
+window['score'] = 0;
 let CLOUD_VELOCITY = 5;
 const statisticsPanel = document.getElementById('statisticsPanel');
 const gameOverPanel = document.getElementById('gameOverPanel');
 
 function updateLives() {
     window['lives']--;
-    statisticsPanel.textContent = `Lives: ${window['lives']}`;
+    statisticsPanel.innerHTML =
+        `Lives: ${window['lives']}<br>
+        Score: ${window['score']}`;
 }
 
 function showGameOverPanel() {
+    gameOverPanel.innerHTML =
+        `GAME OVER!<br>
+        Score: ${window['score']}`;
     gameOverPanel.style.display = 'block';
 }
 
@@ -44,8 +51,14 @@ function init() {
     // Create Obstacles
     createObstacle();
 
+    // create coins initially and then periodically
+    createCoins();
+
     // Move the clouds in the sky
     animationLoop();
+
+    // Start the animation loop for coins
+    animateCoins();
 
     // Animate cube
     animateCube();

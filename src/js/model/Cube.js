@@ -1,6 +1,7 @@
 import * as THREE from "../../../vendors/three.module.js";
 import { Colors } from "../color.js";
 import { isJumping } from "../jump.js";
+import { Plus } from "./Plus.js";
 
 class Cube {
     constructor() {
@@ -62,6 +63,28 @@ class Cube {
     reduceCube() {
         this.scale = this.scale - (this.scale / window['lives']);
         cube.mesh.scale.set(this.scale, this.scale, this.scale);
+    }
+
+    earnedCoinAnimation() {
+        const duration = 100;
+        const endTime = Date.now() + duration;
+        const plusSign = new Plus(cube);
+        scene.add(plusSign);
+
+        function shine() {
+            const now = Date.now();
+            const elapsed = now - (endTime - duration);
+            const progress = elapsed / duration;
+
+            if (progress < 1) {
+                cube.material.color.setHex(Colors.gold);
+                requestAnimationFrame(shine);
+            } else {
+                cube.material.color.setHex(Colors.pink);
+                scene.remove(plusSign);
+            }
+        }
+        shine();
     }
 }
 
