@@ -13,14 +13,16 @@ class Obstacle {
     }
 
     resetPosition() {
-        this.mesh.position.set(1200 + Math.random() * 600, 0, -50); // Random Z position
+        this.mesh.position.set(1200 + Math.random() * 600, 0, -50);
         this.alreadyCollided = false;
     }
 
     move() {
         this.mesh.position.x -= this.obstacleVelocity;
         if (this.mesh.position.x < -600) {
-            this.resetPosition();
+            setTimeout(() => {
+                this.resetPosition();
+            }, Math.random() * 5000); // Random delay between 0 and 5 seconds
         }
     }
 

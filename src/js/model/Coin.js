@@ -5,6 +5,7 @@ import { generateEquidistantParabolaPoints } from "../util/ParabolicCalculationU
 let horizontalScaling = 120;
 let coinVelocity = 2.5;
 const statisticsPanel = document.getElementById('statisticsPanel');
+const OBSTACLE_DISTANCE_THRESHOLD = 50;
 
 function updateScore() {
     window['score']++;
@@ -41,6 +42,11 @@ class Coin {
             }
         };
         scaleDown();
+    }
+
+    isCoinPositionValid() {
+        const distance = this.mesh.position.distanceTo(window['obstacle'].mesh.position);
+        return distance >= OBSTACLE_DISTANCE_THRESHOLD;
     }
 }
 
@@ -79,22 +85,25 @@ export function createCoins() {
     }
 }
 
-function createCoinsInLine(coinNumber, startX) {
-    for (let i = 0; i < coinNumber; i++) {
-        const coin = new Coin();
-        coin.mesh.position.set(startX + i * SPACING, START_Y, START_Z);
+function createAndAddCoinToTheScene(x, y, z) {
+    const coin = new Coin();
+    coin.mesh.position.set(x, y, z);
+    if (coin.isCoinPositionValid()) {
         coins.push(coin);
         scene.add(coin.mesh);
+    }
+}
+
+function createCoinsInLine(coinNumber, startX) {
+    for (let i = 0; i < coinNumber; i++) {
+        createAndAddCoinToTheScene(startX + i * SPACING, START_Y, START_Z);
     }
 }
 
 function createCoinsInParable(coinNumber, startX) {
     const parabolicPoints = generateEquidistantParabolaPoints(startX, START_Y, PEAK_HEIGHT, coinNumber, horizontalScaling);
     for (let i = 0; i < coinNumber; i++) {
-        const coin = new Coin();
-        coin.mesh.position.set(parabolicPoints[i].x, parabolicPoints[i].y, START_Z);
-        coins.push(coin);
-        scene.add(coin.mesh);
+        createAndAddCoinToTheScene(parabolicPoints[i].x, parabolicPoints[i].y, START_Z);
     }
     // Find the x-coordinate of the last coin in the parabola and return it
     return parabolicPoints[coinNumber - 1].x;
