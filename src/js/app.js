@@ -15,6 +15,7 @@ window.addEventListener('load', init, false);
 window['lives'] = 3;
 window['score'] = 0;
 let CLOUD_VELOCITY = 5;
+let EARTH_VELOCITY = 0.001;
 const statisticsPanel = document.getElementById('statisticsPanel');
 const gameOverPanel = document.getElementById('gameOverPanel');
 
@@ -78,6 +79,9 @@ function animationLoop(){
     // Increment speed of clouds linearly
     incrementCloudVelocity();
 
+    // Increment speed of earth linearly
+    incrementEarthVelocity();
+
     // Move obstacle
     obstacle.move();
 
@@ -112,5 +116,13 @@ function animationLoop(){
 function incrementCloudVelocity() {
     if (CLOUD_VELOCITY < 25) {
         CLOUD_VELOCITY += 0.0015;
+    }
+}
+
+function incrementEarthVelocity() {
+    // Update the ground texture offset to create the moving effect
+    earth.mesh.material.map.offset.x += EARTH_VELOCITY;
+    if (EARTH_VELOCITY < 0.005) {
+        EARTH_VELOCITY += 0.0000003;
     }
 }
