@@ -19,10 +19,10 @@ export function createLights() {
     shadowLight.castShadow = true;
 
     // Define the visible area of the projected shadow
-    shadowLight.shadow.camera.left = -400;
-    shadowLight.shadow.camera.right = 400;
-    shadowLight.shadow.camera.top = 400;
-    shadowLight.shadow.camera.bottom = -400;
+    shadowLight.shadow.camera.left = -600;
+    shadowLight.shadow.camera.right = 600;
+    shadowLight.shadow.camera.top = 600;
+    shadowLight.shadow.camera.bottom = -600;
     shadowLight.shadow.camera.near = 1;
     shadowLight.shadow.camera.far = 1000;
 
