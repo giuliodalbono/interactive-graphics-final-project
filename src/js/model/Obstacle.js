@@ -13,7 +13,7 @@ class Obstacle {
     }
 
     resetPosition() {
-        this.mesh.position.set(1200 + Math.random() * 600, 0, -50);
+        this.mesh.position.set(600 + Math.random() * 200, 0, -50);
         this.alreadyCollided = false;
     }
 
@@ -22,7 +22,7 @@ class Obstacle {
         if (this.mesh.position.x < -600) {
             setTimeout(() => {
                 this.resetPosition();
-            }, Math.random() * 5000); // Random delay between 0 and 5 seconds
+            }, Math.random() * 2000); // Random delay between 0 and 5 seconds
         }
     }
 
