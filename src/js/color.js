@@ -1,13 +1,11 @@
 /**
  * Utility for color palette to be used throughout the project.
- * @type {{red: number, pink: number, white: number, blue: number, brownDark: number, brown: number}}
+ * @type {{ red: number, white: number, brown: number, pink: number, gold: number }}
  */
 export const Colors = {
     red: 0xf25346,
     white: 0xffffff,
     brown: 0x59332e,
     pink: 0xF5986E,
-    brownDark: 0x23190f,
-    blue: 0x68c3c0,
     gold: 0xffd700
 };

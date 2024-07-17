@@ -1,7 +1,11 @@
 import * as THREE from "../../vendors/three.module.js";
 
+// Screen's height and width
 let HEIGHT, WIDTH;
 
+/**
+ * Function responsible for the creation of the scene.
+ */
 export function createScene() {
     // Get the width and the height of the screen, use them to set up the aspect ratio of the camera and the size of the
     // renderer
@@ -31,10 +35,10 @@ export function createScene() {
 
     // Create the renderer
     const renderer = new THREE.WebGLRenderer({
-        // Allow transparency to show the gradient background we defined in the CSS
+        // Allow transparency to show the gradient background defined in the CSS
         alpha: true,
 
-        // Activate the antialiasing; this is less performant, but, as the project is low-poly based, it should be fine
+        // Activate the antialiasing
         antialias: true
     });
     window['renderer'] = renderer;
@@ -50,10 +54,13 @@ export function createScene() {
     const container = document.getElementById('world');
     container.appendChild(renderer.domElement);
 
-    // Listen to the screen: if the user resizes it we have to update the camera and the renderer size
+    // Listen to the screen: if the user resizes it the camera and renderer size have to be updated
     window.addEventListener('resize', handleWindowResize, false);
 }
 
+/**
+ * Function responsible for window resize handling.
+ */
 function handleWindowResize() {
     // Update height and width of the renderer and the camera
     HEIGHT = window.innerHeight;

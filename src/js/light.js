@@ -1,15 +1,14 @@
 import * as THREE from "../../vendors/three.module.js";
 import { Colors } from "./color.js";
 
+/**
+ * Function responsible for lights creation.
+ */
 export function createLights() {
-    // A hemisphere light is a gradient colored light;
-    // the first parameter is the sky color,
-    // the second parameter is the ground color,
-    // the third parameter is the intensity of the light
+    // Create a gradient colored light; parameters: sky color, ground color, light intensity
     const hemisphereLight = new THREE.HemisphereLight(0x87ceeb, Colors.brown, .9)
 
-    // A directional light shines from a specific direction.
-    // It acts like the sun, that means that all the rays produced are parallel
+    // Directional light which acts as the sun
     const shadowLight = new THREE.DirectionalLight(0xffffff, 4);
 
     // Set the direction of the light

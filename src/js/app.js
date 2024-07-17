@@ -13,13 +13,16 @@ import { createPalms, incrementPalmsSpeed } from "./palm.js";
 
 window.addEventListener('load', init, false);
 
-window['lives'] = 3;
-window['score'] = 0;
-let CLOUD_VELOCITY = 5;
-let EARTH_VELOCITY = 0.001;
+window['lives'] = 3; // Initial lives of the player
+window['score'] = 0; // Initial score of the player
+let CLOUD_VELOCITY = 5; // Initial cloud velocity
+let EARTH_VELOCITY = 0.001; // Initial earth velocity
 const statisticsPanel = document.getElementById('statisticsPanel');
 const gameOverPanel = document.getElementById('gameOverPanel');
 
+/**
+ * Decrease the lives of the player.
+ */
 function updateLives() {
     window['lives']--;
     statisticsPanel.innerHTML =
@@ -27,6 +30,9 @@ function updateLives() {
         Score: ${window['score']}`;
 }
 
+/**
+ * Shows the game over panel.
+ */
 function showGameOverPanel() {
     gameOverPanel.innerHTML =
         `GAME OVER!<br>
@@ -34,6 +40,9 @@ function showGameOverPanel() {
     gameOverPanel.style.display = 'block';
 }
 
+/**
+ * Main function of the game.
+ */
 function init() {
     // Set up the scene, the camera and the renderer
     createScene();
@@ -41,16 +50,16 @@ function init() {
     // Add the lights
     createLights();
 
-    // Create Sea
+    // Create earth
     createEarth();
 
-    // Create Cube
+    // Create cube character
     createCube();
 
-    // Create Sky
+    // Create sky
     createSky();
 
-    // Create Obstacles
+    // Create obstacles
     createObstacle();
 
     // create coins initially and then periodically
@@ -59,7 +68,7 @@ function init() {
     // Create palm trees
     createPalms();
 
-    // Move the clouds in the sky
+    // Main animation loop function
     animationLoop();
 
     // Start the animation loop for coins
@@ -69,6 +78,9 @@ function init() {
     animateCube();
 }
 
+/**
+ * Main animation loop function.
+ */
 function animationLoop(){
     // Update cloud position to make feel there is movement
     sky.mesh.children.forEach(cloud => {
@@ -98,12 +110,14 @@ function animationLoop(){
     // Check for collision with the cube
     if (cube.checkCollision(obstacle)) {
         if (! obstacle.alreadyCollided) {
+            // Update lives and reduce cube's size
             if (window['lives'] > 1) {
                 cube.reduceCube();
                 obstacle.alreadyCollided = true;
             }
             updateLives();
         }
+        // Invoke cube animations for collisions
         cube.animateCollision();
         obstacle.animateCrash();
     }
@@ -120,12 +134,18 @@ function animationLoop(){
     }
 }
 
+/**
+ * Increments speed, until the cap of cloud velocity is reached (25).
+ */
 function incrementCloudVelocity() {
     if (CLOUD_VELOCITY < 25) {
         CLOUD_VELOCITY += 0.0015;
     }
 }
 
+/**
+ * Increments speed, until the cap of earth velocity is reached (0.005).
+ */
 function incrementEarthVelocity() {
     // Update the ground texture offset to create the moving effect
     earth.mesh.material.map.offset.x += EARTH_VELOCITY;
