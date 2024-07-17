@@ -1,7 +1,7 @@
 import { OBJLoader } from "../../vendors/OBJLoader.js";
 import * as THREE from "../../vendors/three.module.js";
 
-const N_PALMS = 7;
+const N_PALMS = 5;
 let palmVelocity = 2.5;
 let palms = [];
 
@@ -54,7 +54,7 @@ function movePalm(palm) {
 
 function resetPalmPosition(palm) {
     const zDistanceFactor = Math.random();
-    const x = 500 + Math.random() * 100;
+    const x = 500 + Math.random() * 150;
     const z = -180 - zDistanceFactor * 60;
     const scale = 6 + 4 * (1 - zDistanceFactor);
 
