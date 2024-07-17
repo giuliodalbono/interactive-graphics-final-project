@@ -9,6 +9,7 @@ import { createCube } from "./model/Cube.js";
 import { animateCube } from "./jump.js";
 import { createObstacle } from "./model/Obstacle.js";
 import { animateCoins, createCoins } from "./model/Coin.js";
+import { createPalms, incrementPalmsSpeed } from "./palm.js";
 
 window.addEventListener('load', init, false);
 
@@ -55,6 +56,9 @@ function init() {
     // create coins initially and then periodically
     createCoins();
 
+    // Create palm trees
+    createPalms();
+
     // Move the clouds in the sky
     animationLoop();
 
@@ -87,6 +91,9 @@ function animationLoop(){
 
     // Increment speed of obstacles linearly
     obstacle.incrementSpeed();
+
+    // Increment speed of palms linearly
+    incrementPalmsSpeed();
 
     // Check for collision with the cube
     if (cube.checkCollision(obstacle)) {
